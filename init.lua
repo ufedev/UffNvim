@@ -117,9 +117,21 @@ require('lazy').setup({
   { 'pearofducks/ansible-vim' },
   -- Autocomplete cmd / autocompletado cmd
   { 'hrsh7th/nvim-cmp' },
-{ 'hrsh7th/cmp-path' },
-{ 'hrsh7th/cmp-buffer' },
-{ 'hrsh7th/cmp-cmdline' }
+  { 'hrsh7th/cmp-path' },
+  { 'hrsh7th/cmp-buffer' },
+  { 'hrsh7th/cmp-cmdline' },
+  -- Tailwindcss
+  {
+    "luckasRanarison/tailwind-tools.nvim",
+    name = "tailwind-tools",
+    build = ":UpdateRemotePlugins",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-telescope/telescope.nvim", -- opcional
+      "neovim/nvim-lspconfig",         -- opcional
+    },
+    opts = {},                         -- tu configuración
+  }
 })
 
 
@@ -152,6 +164,18 @@ vim.cmd.colorscheme('catppuccin')
 ------------------------------------------------------------
 
 require("nvim-web-devicons").setup({})
+
+------------------------------------------------------------
+--- Tailwindcss
+------------------------------------------------------------
+require('lspconfig').tailwindcss.setup {
+  cmd = { "tailwindcss-language-server", "--stdio" },
+  filetypes = { "html", "css", "javascript", "typescript", "vue", "*" },
+  root_dir = require('lspconfig.util').root_pattern("tailwind.config.js", "package.json"),
+  settings = {},
+}
+
+require("tailwind-tools").setup({})
 
 ------------------------------------------------------------
 -- Treesitter setup / treesitter instalación
