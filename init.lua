@@ -25,7 +25,6 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.updatetime = 250
 vim.opt.signcolumn = 'yes'
-
 ------------------------------------------------------------
 -- lazy.nvim bootstrap (plugin manager) // manejador de paquetes
 ------------------------------------------------------------
@@ -116,8 +115,34 @@ require('lazy').setup({
 
   -- YAML / Ansible extras
   { 'pearofducks/ansible-vim' },
+  -- Autocomplete cmd / autocompletado cmd
+  { 'hrsh7th/nvim-cmp' },
+{ 'hrsh7th/cmp-path' },
+{ 'hrsh7th/cmp-buffer' },
+{ 'hrsh7th/cmp-cmdline' }
 })
 
+
+------------------------------------------------------------
+--- Autocompletado cmd / cmd autocomplete
+------------------------------------------------------------
+local cmp = require('cmp')
+
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = {
+    { name = 'buffer' }
+  }
+})
 ------------------------------------------------------------
 -- Colorscheme / Tema (colores)
 ------------------------------------------------------------
