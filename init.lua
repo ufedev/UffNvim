@@ -3,9 +3,10 @@
 -- Single-file init.lua. Drop in:
 --   * macOS/Linux: ~/.config/nvim/init.lua
 --   * Windows:     %LOCALAPPDATA%\nvim\init.lua
+--   Author: Malfasi Federico
 
 ------------------------------------------------------------
--- Basics & leader
+-- Basics & leader / Configuración básica y tecla leader
 ------------------------------------------------------------
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -26,7 +27,7 @@ vim.opt.updatetime = 250
 vim.opt.signcolumn = 'yes'
 
 ------------------------------------------------------------
--- lazy.nvim bootstrap (plugin manager)
+-- lazy.nvim bootstrap (plugin manager) // manejador de paquetes
 ------------------------------------------------------------
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -78,7 +79,7 @@ require('lazy').setup({
     end
   },
 
-  -- Theme (choose one; default to catppuccin)
+  -- Theme (choose one; default to catppuccin) / Tema (elegi uno; por defecto catppuccin)
   { 'catppuccin/nvim',                  name = 'catppuccin', priority = 1000 },
 
   -- Navigation & search
@@ -118,17 +119,17 @@ require('lazy').setup({
 })
 
 ------------------------------------------------------------
--- Colorscheme
+-- Colorscheme / Tema (colores)
 ------------------------------------------------------------
 vim.cmd.colorscheme('catppuccin')
 ------------------------------------------------------------
---- icons
+--- icons / Iconos
 ------------------------------------------------------------
 
 require("nvim-web-devicons").setup({})
 
 ------------------------------------------------------------
--- Treesitter setup
+-- Treesitter setup / treesitter instalación
 ------------------------------------------------------------
 require('nvim-treesitter.configs').setup({
   ensure_installed = {
@@ -145,21 +146,19 @@ require('nvim-treesitter.configs').setup({
 
 
 ------------------------------------------------------------
--- Telescope keymaps
+-- Telescope keymaps / Telescope mapeo  de teclas
 ------------------------------------------------------------
 local map = vim.keymap.set
 map('n', '<leader>ff', function() require('telescope.builtin').find_files() end, { desc = 'Find files' })
 map('n', '<leader>fg', function() require('telescope.builtin').live_grep() end, { desc = 'Grep' })
 map('n', '<leader>fb', function() require('telescope.builtin').buffers() end, { desc = 'Buffers' })
 map('n', '<leader>fh', function() require('telescope.builtin').help_tags() end, { desc = 'Help' })
-map('n', 'gr', function()
-  require('telescope.builtin').lsp_references()
-end, { desc = "LSP references" })
+map('n', 'gr', vim.lsp.buf.references, { desc = "LSP references (No abre ventana de busqueda)" })
 map('n', '<leader>c', ':bd<CR>')
 map('n', '<leader>m', ':cclose<CR>')
 
 ------------------------------------------------------------
--- NvimTree & Bufferline keys
+-- NvimTree & Bufferline keys / Mapeo telcas NvimTree (el explorador/the explorer)
 ------------------------------------------------------------
 map('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Explorer' })
 map('n', '<leader>o', ':NvimTreeFocus<CR>', { desc = 'Focus Explorer' })
@@ -167,7 +166,7 @@ map('n', '<S-l>', ':bnext<CR>', { desc = 'Next buffer' })
 map('n', '<S-h>', ':bprevious<CR>', { desc = 'Prev buffer' })
 
 ------------------------------------------------------------
--- ToggleTerm
+-- ToggleTerm | Abrir/Cerrar terminal
 ------------------------------------------------------------
 require('toggleterm').setup({
   open_mapping = [[<leader>tt]], -- press <Space> t t
@@ -176,7 +175,7 @@ require('toggleterm').setup({
 })
 
 ------------------------------------------------------------
--- nvim-cmp (completion)
+-- nvim-cmp (completion) | autocompletado
 ------------------------------------------------------------
 local cmp = require('cmp')
 local luasnip = require('luasnip')
@@ -278,7 +277,7 @@ for name, cfg in pairs(servers) do
 end
 
 ------------------------------------------------------------
--- conform.nvim (format on save)
+-- conform.nvim (format on save) | Formatea al guardar
 ------------------------------------------------------------
 require('conform').setup({
   formatters_by_ft = {
@@ -326,7 +325,7 @@ vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
 })
 
 ------------------------------------------------------------
--- Small Python/JS helpers
+-- Small Python/JS helpers | solo Mac/ Linux
 ------------------------------------------------------------
 -- Prefer project venv if present (Unix-like). Adjust for Windows if needed.
 local function activate_venv()
@@ -350,7 +349,7 @@ map('n', '<leader>gs', ':Gitsigns toggle_signs<CR>', { desc = 'Toggle Git signs'
 ------------------------------------------------------------
 vim.diagnostic.config({ virtual_text = true, severity_sort = true })
 
--- Tips:
+-- Tips , consejos:
 -- :Mason to install language servers / formatters / linters
 -- Ensure you have these CLIs somewhere in PATH for best results:
 --  Python: black, ruff
