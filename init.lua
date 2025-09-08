@@ -78,8 +78,16 @@ require('lazy').setup({
     end
   },
 
-  -- Theme (choose one; default to catppuccin) / Tema (elegi uno; por defecto catppuccin)
-  { 'catppuccin/nvim',                  name = 'catppuccin', priority = 1000 },
+  -- Theme (choose one; default to catppuccin) / Tema (elegi uno; por defecto onedark_dark)
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000
+  },
+  {
+    "olimorris/onedarkpro.nvim",
+    priority = 1000,
+  },
 
   -- Navigation & search
   { 'nvim-lua/plenary.nvim' },
@@ -92,7 +100,7 @@ require('lazy').setup({
   { 'williamboman/mason.nvim',          config = true },
   { 'williamboman/mason-lspconfig.nvim' },
   { 'neovim/nvim-lspconfig' },
-  { 'j-hui/fidget.nvim',                tag = 'legacy',      config = true },
+  { 'j-hui/fidget.nvim',                tag = 'legacy',     config = true },
   { 'hrsh7th/nvim-cmp' },
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'hrsh7th/cmp-path' },
@@ -105,7 +113,7 @@ require('lazy').setup({
   { 'mfussenegger/nvim-lint' },
 
   -- Terminal
-  { 'akinsho/toggleterm.nvim',          version = '*',       config = true },
+  { 'akinsho/toggleterm.nvim',          version = '*',      config = true },
 
   -- Git & quality of life
   { 'lewis6991/gitsigns.nvim',          config = true },
@@ -122,16 +130,10 @@ require('lazy').setup({
   { 'hrsh7th/cmp-cmdline' },
   -- Tailwindcss
   {
-    "luckasRanarison/tailwind-tools.nvim",
-    name = "tailwind-tools",
-    build = ":UpdateRemotePlugins",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-telescope/telescope.nvim", -- opcional
-      "neovim/nvim-lspconfig",         -- opcional
-    },
-    opts = {},                         -- tu configuración
-  }
+    "windwp/nvim-ts-autotag",
+  },
+  -- Nginx: syntax/ftdetect
+  { "chr4/nginx.vim", ft = "nginx" },
 })
 
 
@@ -158,7 +160,23 @@ cmp.setup.cmdline({ '/', '?' }, {
 ------------------------------------------------------------
 -- Colorscheme / Tema (colores)
 ------------------------------------------------------------
-vim.cmd.colorscheme('catppuccin')
+---Solo si usas onedark
+require("onedarkpro").setup({
+  options = {
+    transparency = true, -- true si usás terminal/transparency
+  },
+  styles = {
+    comments  = "italic",
+    keywords  = "bold",
+    functions = "NONE",
+    strings   = "NONE",
+    variables = "NONE",
+  },
+})
+-- luego:
+vim.cmd.colorscheme("onedark") -- onedark(default), onedark_dark,onedark_vivid,onelight,catppuccin
+
+
 ------------------------------------------------------------
 --- icons / Iconos
 ------------------------------------------------------------
@@ -168,14 +186,40 @@ require("nvim-web-devicons").setup({})
 ------------------------------------------------------------
 --- Tailwindcss
 ------------------------------------------------------------
-require('lspconfig').tailwindcss.setup {
-  cmd = { "tailwindcss-language-server", "--stdio" },
-  filetypes = { "html", "css", "javascript", "typescript", "vue", "*" },
-  root_dir = require('lspconfig.util').root_pattern("tailwind.config.js", "package.json"),
-  settings = {},
-}
+require("nvim-ts-autotag").setup({})
+require("nvim-treesitter.configs").setup({
+  ensure_installed = {
+    -- lo que ya tengas + estos si faltan
+    "html", "css", "javascript", "typescript", "tsx", "json",
+    "svelte", "vue", "astro", "nginx"
+  },
+  highlight = { enable = true },
+  indent = { enable = true },
+})
+require("mason-lspconfig").setup({
+  ensure_installed = {
+    -- lo que ya tenías…
+    "lua_ls", "html", "cssls", "jsonls", "ts_ls", "eslint",
+    -- añadir:
+    "tailwindcss",
+  },
+  automatic_installation = true,
+})
+local lsp = require("lspconfig")
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-require("tailwind-tools").setup({})
+lsp.tailwindcss.setup({
+  capabilities = capabilities,
+  filetypes = {
+    "html", "css", "scss", "javascript", "typescript", "javascriptreact",
+    "typescriptreact", "vue", "svelte", "astro"
+  },
+  root_dir = require("lspconfig.util").root_pattern(
+    "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.ts",
+    "postcss.config.js", "package.json", ".git"
+  ),
+})
+
 
 ------------------------------------------------------------
 -- Treesitter setup / treesitter instalación
