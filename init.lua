@@ -10,7 +10,6 @@
 ------------------------------------------------------------
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
 vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -25,6 +24,7 @@ vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.updatetime = 250
 vim.opt.signcolumn = 'yes'
+vim.filetype.add({ extension = { md = "markdown", MD = "markdown" } })
 ------------------------------------------------------------
 -- lazy.nvim bootstrap (plugin manager) // manejador de paquetes
 ------------------------------------------------------------
@@ -128,7 +128,7 @@ require('lazy').setup({
   { 'hrsh7th/cmp-path' },
   { 'hrsh7th/cmp-buffer' },
   { 'hrsh7th/cmp-cmdline' },
-  -- Tailwindcss
+  -- Tailwindcss -- Colorizador(colorizer)
   {
     "windwp/nvim-ts-autotag",
   },
@@ -145,8 +145,30 @@ require('lazy').setup({
       })
     end
   },
+  -- Markdown LSP
+  { "artempyanykh/marksman",        build = "" }, -- binario lo instala Mason
+
+  -- Preview en browser (rápido de usar)
+  {
+    "iamcco/markdown-preview.nvim",
+    ft = { "markdown" },
+    build = "cd app && npm install",
+    init = function() vim.g.mkdp_filetypes = { "markdown" } end
+  },
+
+  -- Preview en terminal (opcional, si preferís dentro de nvim)
+  { "ellisonleao/glow.nvim",        cmd = "Glow",                                     config = true },
+
+  -- Mejor lectura de headings, quotes, etc.
+  { "lukas-reineke/headlines.nvim", dependencies = "nvim-treesitter/nvim-treesitter", config = true },
+
+  -- Tablas Markdown
+  { "dhruvasagar/vim-table-mode",   ft = { "markdown" } },
+
+  -- Table of Contents
+  { "mzlogin/vim-markdown-toc",     ft = { "markdown" } },
   -- Nginx: syntax/ftdetect
-  { "chr4/nginx.vim", ft = "nginx" },
+  { "chr4/nginx.vim",               ft = "nginx" },
 })
 
 
@@ -234,6 +256,7 @@ lsp.tailwindcss.setup({
 })
 
 
+
 ------------------------------------------------------------
 -- Treesitter setup / treesitter instalación
 ------------------------------------------------------------
@@ -244,13 +267,16 @@ require('nvim-treesitter.configs').setup({
     'javascript', 'typescript', 'tsx',
     'astro', 'html', 'css',
     'json', 'yaml', 'toml',
-    'sql', 'dockerfile', 'bash', 'markdown'
+    'sql', 'dockerfile', 'bash', 'markdown', 'markdown_inline'
   },
   highlight = { enable = true },
   indent = { enable = true },
 })
 
 
+------------------------------------------------------------
+-- Markdown
+----------------------------------------------------------
 ------------------------------------------------------------
 -- Telescope keymaps / Telescope mapeo  de teclas
 ------------------------------------------------------------
@@ -270,6 +296,23 @@ map('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Explorer' })
 map('n', '<leader>o', ':NvimTreeFocus<CR>', { desc = 'Focus Explorer' })
 map('n', '<S-l>', ':bnext<CR>', { desc = 'Next buffer' })
 map('n', '<S-h>', ':bprevious<CR>', { desc = 'Prev buffer' })
+
+------------------------------------------------------------
+--- Markdown Preview
+------------------------------------------------------------
+-- Preview en browser
+map("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", { desc = "Markdown Preview (toggle)" })
+
+-- Preview en terminal con glow (opcional)
+map("n", "<leader>mg", "<cmd>Glow<CR>", { desc = "Markdown Glow" })
+
+-- Tablas
+map("n", "<leader>tm", "<cmd>TableModeToggle<CR>", { desc = "Table Mode (toggle)" })
+-- Dentro de TableMode: `||` para nueva celda, `:TableModeRealign` re-alinea
+
+-- TOC (Table of Contents)
+map("n", "<leader>tc", "<cmd>GenTocGFM<CR>", { desc = "Generate TOC (GFM)" })
+map("n", "<leader>tC", "<cmd>RemoveToc<CR>", { desc = "Remove TOC" })
 
 ------------------------------------------------------------
 -- ToggleTerm | Abrir/Cerrar terminal
@@ -343,6 +386,8 @@ require('mason-lspconfig').setup({
     'yamlls', 'ansiblels', 'taplo', 'bashls',
     -- Misc
     'lua_ls',
+    -- markdown
+    'marksman'
   }
 })
 
@@ -382,6 +427,13 @@ for name, cfg in pairs(servers) do
   lspconfig[name].setup(cfg)
 end
 
+------------------------------------------------------------
+-- Markdown
+------------------------------------------------------------
+require('lspconfig').marksman.setup({
+  on_attach = on_attach,
+  capabilities = capabilities
+})
 ------------------------------------------------------------
 -- conform.nvim (format on save) | Formatea al guardar
 ------------------------------------------------------------

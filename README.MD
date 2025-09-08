@@ -1,5 +1,6 @@
 # NVIM IDE Configuración
 
+Documentación en curso.
 
 ## Requisitos
 - Instalar  JetBrains nerd font [link](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/JetBrainsMono.zip)
@@ -8,22 +9,22 @@
 - Nodejs [Descarga](https://nodejs.org/es/download)
 - lua-language-server
   - Windows
-    ´´´ps
+    ```ps
     Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
     Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
-    ´´´
-    ´´´
+    ```
+    ```ps
     scoop install lua-language-server
-    ´´´
+    ```
   - MacOs
-  ´´´
+  ```zsh
   brew install lua-language-server
-  ´´´
+  ```
   - Linux (ubuntu)
-  ´´´
+  ```bash
   sudo apt install lua-language-server
 
-  ´´´
+  ```
 
 
 ## Esta configuración toma como <leader- = SPACE
@@ -46,6 +47,7 @@
 - :q cerrar file
 - :w guardar file
 - :Ex  explorador de NVIM
+
 
 
 
