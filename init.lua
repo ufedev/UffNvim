@@ -132,6 +132,19 @@ require('lazy').setup({
   {
     "windwp/nvim-ts-autotag",
   },
+  {
+    "NvChad/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup({
+        filetypes = { "*" },
+        user_default_options = {
+          tailwind = true,
+          css = true,
+          mode = "backgroud",
+        },
+      })
+    end
+  },
   -- Nginx: syntax/ftdetect
   { "chr4/nginx.vim", ft = "nginx" },
 })
