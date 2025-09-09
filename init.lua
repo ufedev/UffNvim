@@ -4,7 +4,8 @@
 --   * macOS/Linux: ~/.config/nvim/init.lua
 --   * Windows:     %LOCALAPPDATA%\nvim\init.lua
 --   Author: Malfasi Federico
-
+-- No autoload (mejora la carga)
+vim.loader.enable()
 ------------------------------------------------------------
 -- Basics & leader / Configuración básica y tecla leader
 ------------------------------------------------------------
@@ -185,9 +186,14 @@ require('lazy').setup({
   { "mzlogin/vim-markdown-toc",     ft = { "markdown" } },
   -- Nginx: syntax/ftdetect
   { "chr4/nginx.vim",               ft = "nginx" },
-})
+}, {
 
+  -- Corrección de autoload lazy
+  defaults = { lazy = false },
+  checker = { enable = false }
+}
 
+)
 ------------------------------------------------------------
 --- Corrección de globales
 ------------------------------------------------------------
