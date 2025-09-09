@@ -557,12 +557,12 @@ vim.diagnostic.config({ virtual_text = true, severity_sort = true })
 ---- Shell más ágil en Windows
 if vim.loop.os_uname().sysname == "Windows_NT" then
   -- Opción 1: PowerShell Core
-  vim.opt.shell = "pwsh.exe"
-  vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
-  vim.opt.shellxquote = ""
-  -- Opción 2 (aún más simple/rápida): CMD
-  -- vim.opt.shell = "cmd.exe"
-  -- vim.opt.shellcmdflag = "/s /c"
-  -- vim.opt.shellquote = ""
+  -- vim.opt.shell = "pwsh.exe"
+  -- vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
   -- vim.opt.shellxquote = ""
+  -- Opción 2 (aún más simple/rápida): CMD
+  vim.opt.shell = "cmd.exe"
+  vim.opt.shellcmdflag = "/s /c"
+  vim.opt.shellquote = ""
+  vim.opt.shellxquote = ""
 end
