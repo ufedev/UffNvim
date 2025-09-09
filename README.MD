@@ -26,29 +26,70 @@ Documentación en curso.
 
   ```
 
-
-## Esta configuración toma como <leader- = SPACE
-
-
-## Comandos básicos
-
-- Toggle terminal  <leader>tt
-- Abrir/Cerrar explorador <leader>e
-- Moverse al explorador <leader>o
-- Moverse entre pestañas <shift>h (izquierda) <shift>l (Derecha)
-- Buscar definición gr
-- Cerrar el buscador de definiciones <leader>m
-- Crear archivo a
-- Editar nombre archivo e
-- Renombrar archivo (incluye extensión) r
-- Eliminar archivo d
-- Cerrar pestaña <leader>c
-- :qa Cerrar IDE
-- :q cerrar file
-- :w guardar file
-- :Ex  explorador de NVIM
+- Para que funcionen todos los pluggins de tailwindcss hay que tener instalado
+    ```sh
+        npm  i -g @tailwindcss/language-server
+    ```
 
 
+## Esta configuración toma como <leader> = SPACE
+
+
+
+# 📝 Neovim Cheatsheet
+
+## 🔹 Movimiento básico
+- `/palabra` → buscar palabra  
+- `n` / `N` → siguiente / anterior resultado  
+- `:numero` → ir a línea  
+
+## 🔹 Explorador (NvimTree)
+- `<leader>e` → abrir/cerrar explorador  
+- `a` → nuevo archivo/carpeta  
+- `r` → renombrar (cambia extensión también)  
+- `d` → borrar archivo  
+- `y` → copiar ruta  
+- `H` → mostrar/ocultar archivos ocultos  
+
+## 🔹 Buffers / Tabs
+- `:bd` → cerrar buffer actual  
+- `:tabnew` → nueva tab  
+- `gt` / `gT` → siguiente / anterior tab  
+- `<leader>c` → cerrar buffer (custom)  
+
+## 🔹 LSP (Lenguajes)
+- `gd` → ir a definición  
+- `gr` → referencias (quickfix abajo)  
+- `<leader>m`-> cerrar referencias
+- `K` → hover (ver docstring)  
+- `<leader>rn` → renombrar símbolo  
+- `<leader>ca` → code action (refactor, fix, etc)  
+- `<leader>q` → cerrar quickfix  
+
+## 🔹 Autocompletado (nvim-cmp)
+- `<C-n>` → siguiente sugerencia  
+- `<C-p>` → sugerencia anterior  
+- `<CR>` → aceptar  
+- `<C-Space>` → forzar completado  
+
+## 🔹 Folding (plegado de código con Treesitter)
+- `zc` → cerrar fold bajo cursor  
+- `zo` → abrir fold  
+- `za` → toggle  
+- `zM` → cerrar todos  
+- `zR` → abrir todos  
+
+## 🔹 Markdown
+- `<leader>mp` → preview en navegador  
+- `<leader>mg` → preview en terminal (Glow)  
+- `<leader>tm` → activar Table Mode  
+- `<leader>tc` → generar TOC  
+- `<leader>tC` → borrar TOC  
+
+## 🔹 Terminal integrada
+- <leader>tt -> toggle terminal integrada
+- `<C-\><C-n>` → salir de terminal a normal mode  
+- `:bd!` → cerrar terminal actual  
 
 
 ## Por defecto viene icons y hay que instalarlos. Compatible con Window / Mac / Linux

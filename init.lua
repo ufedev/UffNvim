@@ -8,6 +8,7 @@
 ------------------------------------------------------------
 -- Basics & leader / Configuración básica y tecla leader
 ------------------------------------------------------------
+vim = vim or {}
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.opt.termguicolors = true
@@ -32,10 +33,15 @@ vim.opt.foldenable = true
 vim.opt.foldlevel  = 99                           -- abre todo por defecto (no te “esconde” nada al abrir)
 -- opcional: una columna que muestre los folds
 -- vim.opt.foldcolumn = "1"
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function() vim.diagnostic.enable(false) end,
+})
+vim.g.table_mode_map_prefix = '<leader>T'
 ------------------------------------------------------------
 -- lazy.nvim bootstrap (plugin manager) // manejador de paquetes
 ------------------------------------------------------------
-local lazypath     = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     'git', 'clone', '--filter=blob:none',
@@ -48,6 +54,8 @@ vim.opt.rtp:prepend(lazypath)
 -- Plugins
 ------------------------------------------------------------
 require('lazy').setup({
+  -- Solución a globales
+  { 'folke/neodev.nvim',          opts = {} },
   -- UI
   { 'nvim-lualine/lualine.nvim',  config = true },
   { 'nvim-tree/nvim-web-devicons' },
@@ -181,6 +189,10 @@ require('lazy').setup({
 
 
 ------------------------------------------------------------
+--- Corrección de globales
+------------------------------------------------------------
+require('neodev').setup({})
+------------------------------------------------------------
 --- Autocompletado cmd / cmd autocomplete
 ------------------------------------------------------------
 local cmp = require('cmp')
@@ -296,7 +308,6 @@ map('n', '<leader>fh', function() require('telescope.builtin').help_tags() end, 
 map('n', 'gr', vim.lsp.buf.references, { desc = "LSP references (No abre ventana de busqueda)" })
 map('n', '<leader>c', ':bd<CR>')
 map('n', '<leader>m', ':cclose<CR>')
-
 ------------------------------------------------------------
 -- NvimTree & Bufferline keys / Mapeo telcas NvimTree (el explorador/the explorer)
 ------------------------------------------------------------
@@ -304,23 +315,22 @@ map('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Explorer' })
 map('n', '<leader>o', ':NvimTreeFocus<CR>', { desc = 'Focus Explorer' })
 map('n', '<S-l>', ':bnext<CR>', { desc = 'Next buffer' })
 map('n', '<S-h>', ':bprevious<CR>', { desc = 'Prev buffer' })
-
 ------------------------------------------------------------
 --- Markdown Preview
 ------------------------------------------------------------
 -- Preview en browser
-map("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", { desc = "Markdown Preview (toggle)" })
+map("n", "<leader>mp", ":MarkdownPreviewToggle<CR>", { desc = "Markdown Preview (toggle)" })
 
 -- Preview en terminal con glow (opcional)
-map("n", "<leader>mg", "<cmd>Glow<CR>", { desc = "Markdown Glow" })
+map("n", "<leader>mg", ":Glow<CR>", { desc = "Markdown Glow" })
 
 -- Tablas
-map("n", "<leader>tm", "<cmd>TableModeToggle<CR>", { desc = "Table Mode (toggle)" })
+map("n", "<leader>tm", ":TableModeToggle<CR>", { desc = "Table Mode (toggle)" })
 -- Dentro de TableMode: `||` para nueva celda, `:TableModeRealign` re-alinea
 
 -- TOC (Table of Contents)
-map("n", "<leader>tc", "<cmd>GenTocGFM<CR>", { desc = "Generate TOC (GFM)" })
-map("n", "<leader>tC", "<cmd>RemoveToc<CR>", { desc = "Remove TOC" })
+map("n", "<leader>tc", ":GenTocGFM<CR>", { desc = "Generate TOC (GFM)" })
+map("n", "<leader>tC", ":RemoveToc<CR>", { desc = "Remove TOC" })
 
 ------------------------------------------------------------
 -- ToggleTerm | Abrir/Cerrar terminal
@@ -383,7 +393,21 @@ local on_attach = function(_, bufnr)
   map('n', '[d', vim.diagnostic.goto_prev, o)
   map('n', ']d', vim.diagnostic.goto_next, o)
 end
-
+lspconfig.lua_ls.setup({
+  settings = {
+    Lua = {
+      runtime = { version = "LuaJIT" },
+      diagnostics = {
+        globals = { "vim" }, -- 👈 reconoce 'vim'
+      },
+      workspace = {
+        checkThirdParty = false,
+        library = vim.api.nvim_get_runtime_file("", true), -- API de Neovim
+      },
+      telemetry = { enable = false },
+    },
+  },
+})
 -- Mason installs
 require('mason-lspconfig').setup({
   ensure_installed = {
