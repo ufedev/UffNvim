@@ -84,7 +84,6 @@ require('lazy').setup({
       require('bufferline').setup({})
     end
   },
-
   -- Theme (choose one; default to catppuccin) / Tema (elegi uno; por defecto onedark_dark)
   {
     'catppuccin/nvim',
@@ -107,7 +106,7 @@ require('lazy').setup({
   { 'williamboman/mason.nvim',          config = true },
   { 'williamboman/mason-lspconfig.nvim' },
   { 'neovim/nvim-lspconfig' },
-  { 'j-hui/fidget.nvim',                tag = 'legacy',     config = true },
+  { 'j-hui/fidget.nvim',                tag = 'legacy',                            config = true },
   { 'hrsh7th/nvim-cmp' },
   { 'hrsh7th/cmp-nvim-lsp' },
   { 'hrsh7th/cmp-path' },
@@ -118,9 +117,11 @@ require('lazy').setup({
   -- Formatting & linting
   { 'stevearc/conform.nvim' },
   { 'mfussenegger/nvim-lint' },
+  { 'mfussenegger/nvim-dap' },
+  { 'rcarriga/nvim-dap-ui',             dependencies = { 'mfussenegger/nvim-dap' } },
 
   -- Terminal
-  { 'akinsho/toggleterm.nvim',          version = '*',      config = true },
+  { 'akinsho/toggleterm.nvim',          version = '*',                             config = true },
 
   -- Git & quality of life
   { 'lewis6991/gitsigns.nvim',          config = true },
