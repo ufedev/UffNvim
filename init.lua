@@ -25,10 +25,17 @@ vim.opt.splitright = true
 vim.opt.updatetime = 250
 vim.opt.signcolumn = 'yes'
 vim.filetype.add({ extension = { md = "markdown", MD = "markdown" } })
+-- Folding por Treesitter
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr   = "nvim_treesitter#foldexpr()" -- requiere nvim-treesitter
+vim.opt.foldenable = true
+vim.opt.foldlevel  = 99                           -- abre todo por defecto (no te “esconde” nada al abrir)
+-- opcional: una columna que muestre los folds
+-- vim.opt.foldcolumn = "1"
 ------------------------------------------------------------
 -- lazy.nvim bootstrap (plugin manager) // manejador de paquetes
 ------------------------------------------------------------
-local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+local lazypath     = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     'git', 'clone', '--filter=blob:none',
@@ -321,6 +328,7 @@ require('toggleterm').setup({
   open_mapping = [[<leader>tt]], -- press <Space> t t
   direction = 'float',
   shade_terminals = true,
+  shell = vim.o.shell
 })
 
 ------------------------------------------------------------
@@ -518,3 +526,18 @@ vim.diagnostic.config({ virtual_text = true, severity_sort = true })
 --   <Space> t t-> toggle terminal (float)
 --   gd / gr / K / <Space> rn / <Space> ca / <Space> fm -> LSP
 --   <Space> ff / fg -> find files / grep
+--
+--
+--   ----------------------------------------------------
+---- Shell más ágil en Windows
+if vim.loop.os_uname().sysname == "Windows_NT" then
+  -- Opción 1: PowerShell Core
+  vim.opt.shell = "pwsh.exe"
+  vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
+  vim.opt.shellxquote = ""
+  -- Opción 2 (aún más simple/rápida): CMD
+  -- vim.opt.shell = "cmd.exe"
+  -- vim.opt.shellcmdflag = "/s /c"
+  -- vim.opt.shellquote = ""
+  -- vim.opt.shellxquote = ""
+end
