@@ -2,7 +2,8 @@
 -- Author: Malfasi Federico (Optimizado para velocidad)
 -- Performance boost
 vim.loader.enable()
-
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 ------------------------------------------------------------
 -- Platform Detection
 ------------------------------------------------------------
@@ -34,9 +35,11 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = helpers.merge_plugins(
   require('plugins'),
+  require('plugins.oil'),
   require('plugins.emoji'),
   require('plugins.go'),
-  require('plugins.rust')
+  require('plugins.rust'),
+  require('plugins.ui')
 )
 --print('Loaded Plugins :' .. #plugins)
 require('lazy').setup(plugins)

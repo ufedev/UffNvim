@@ -3,59 +3,6 @@ return {
   { 'folke/neodev.nvim',           opts = {} },
   { 'nvim-lua/plenary.nvim',       lazy = true },
   { 'nvim-tree/nvim-web-devicons', lazy = true },
-  {
-    'stevearc/oil.nvim',
-    opts = {},
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("oil").setup({
-        -- Configuración de Oil
-        default_file_explorer = true,
-        columns = {
-          "icon",
-          "permissions",
-          "size",
-          "mtime",
-        },
-        buf_options = {
-          buflisted = false,
-          bufhidden = "hide",
-        },
-        win_options = {
-          wrap = false,
-          signcolumn = "no",
-          cursorcolumn = false,
-          foldcolumn = "0",
-          spell = false,
-          list = false,
-          conceallevel = 3,
-          concealcursor = "nvic",
-        },
-        delete_to_trash = true,
-        skip_confirm_for_simple_edits = false,
-        prompt_save_on_select_new_entry = true,
-        keymaps = {
-          ["g?"] = "actions.show_help",
-          ["<CR>"] = "actions.select",
-          ["<C-s>"] = "actions.select_vsplit",
-          ["<C-h>"] = "actions.select_split",
-          ["<C-t>"] = "actions.select_tab",
-          ["<C-p>"] = "actions.preview",
-          ["<C-c>"] = "actions.close",
-          ["<C-l>"] = "actions.refresh",
-          ["-"] = "actions.parent",
-          ["_"] = "actions.open_cwd",
-          ["`"] = "actions.cd",
-          ["~"] = "actions.tcd",
-          ["gs"] = "actions.change_sort",
-          ["gx"] = "actions.open_external",
-          ["g."] = "actions.toggle_hidden",
-          ["g\\"] = "actions.toggle_trash",
-        },
-        use_default_keymaps = true,
-      })
-    end,
-  },
   -- UI Enhancement
   {
     'nvim-lualine/lualine.nvim',
@@ -138,25 +85,21 @@ return {
         sync_root_with_cwd = true,
         respect_buf_cwd = true,
         update_focused_file = { enable = true, update_root = true },
-        view = { width = 50 },
-      })
-      vim.api.nvim_create_autocmd('VimEnter', {
-        group = vim.api.nvim_create_augroup("NvimTreeAutoOpen", { clear = true }),
-        callback = function()
-          if vim.fn.argc() == 0 then
-            require('nvim-tree.api').tree.open()
-          end
-        end,
+        view = { width = 40 },
       })
     end
   },
 
   -- Navigation & Search
   {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    build = 'make'
+  },
+  {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
     tag = '0.1.6',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-fzf-native.nvim' },
     config = function()
       require('telescope').setup({
         defaults = {
@@ -165,6 +108,15 @@ return {
           file_ignore_patterns = { "node_modules", ".git/" },
         }
       })
+      -- Load Extension
+      require('telescope').load_extension('fzf')
+      local builtin = require('telescope.builtin')
+      local map = vim.keymap.set
+      map('n', '<leader>ff', builtin.find_files, {})
+      map('n', '<leader>fg', builtin.live_grep, {})
+      map('n', '<leader>fb', builtin.buffers, {})
+      map('n', '<leader>fh', builtin.help_tags, {})
+      map('n', '<leader>fr', builtin.oldfiles, {})
     end
   },
 
@@ -551,6 +503,7 @@ return {
 
   -- Server Configuration
   { "chr4/nginx.vim",               ft = "nginx" },
+
 
 }, {
   defaults = { lazy = true },

@@ -23,12 +23,6 @@ map('n', '<leader>m', '<cmd>cclose<cr>', opts)
 map('n', '<leader>w', '<cmd>w<cr>', opts)
 map('n', '<leader>q', '<cmd>q<cr>', opts)
 
--- Telescope
-map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', opts)
-map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', opts)
-map('n', '<leader>fb', '<cmd>Telescope buffers<cr>', opts)
-map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', opts)
-
 -- File Explorer
 map('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', opts)
 map('n', '<leader>o', '<cmd>NvimTreeFocus<cr>', opts)
