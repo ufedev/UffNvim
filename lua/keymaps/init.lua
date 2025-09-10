@@ -43,3 +43,7 @@ map("n", "<leader>tC", "<cmd>RemoveToc<cr>", opts)
 -- Utility
 map('n', '<leader>pi', '<cmd>Mason<cr>', opts)
 map('n', '<leader>gs', '<cmd>Gitsigns toggle_signs<cr>', opts)
+
+-- Emojis
+map('n', '<leader>em', '<cmd>Telescope emoji<CR>', { desc = 'Emoji Picker' })
+map('i', '<C-e>', '<Esc><cmd>Telescope emoji<CR>', { desc = 'Emoji Picker in Insert' })

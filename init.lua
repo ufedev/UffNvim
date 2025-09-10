@@ -38,7 +38,7 @@ local plugins = helpers.merge_plugins(
   require('plugins.go'),
   require('plugins.rust')
 )
-print('Loaded Plugins :' .. #plugins)
+--print('Loaded Plugins :' .. #plugins)
 require('lazy').setup(plugins)
 ------------------------------------------------------------
 -- Keymaps keymaps/init.lua
@@ -52,5 +52,6 @@ require('config.python_env')
 -- Final Configuration - utils install dependencies
 ------------------------------------------------------------
 require('utils.init')
+--require('config.oil_auto').setup()
 -- Message
-print("UffNVIM was installed perfectly. enjoy it")
+-- print("UffNVIM was installed perfectly. enjoy it")
