@@ -1,5 +1,6 @@
-# 🚀 uffnvim
+:# 🚀 uffnvim
 
+ 
 Una configuración moderna y modular de Neovim optimizada para desarrollo en **Go**, **Rust**, **JavaScript/TypeScript** y más.
 
 ## ✨ Características

@@ -40,3 +40,18 @@ map('n', '<leader>gs', '<cmd>Gitsigns toggle_signs<cr>', opts)
 -- Emojis
 map('n', '<leader>em', '<cmd>Telescope emoji<CR>', { desc = 'Emoji Picker' })
 map('i', '<C-e>', '<Esc><cmd>Telescope emoji<CR>', { desc = 'Emoji Picker in Insert' })
+
+
+
+-- NvimTree  Node API to new tabs
+--
+function verquees()
+  local api = require('nvim-tree.api')
+  local node = api.tree.get_node_under_cursor()
+  if node and node.type == 'file' then
+    vim.cmd('vsplit ' .. node.name)
+    vim.cmd('wincmd l')
+  end
+end
+
+map('n', '<C-s>', verquees)
