@@ -173,7 +173,7 @@ return {
     config = function()
       require('mason-lspconfig').setup({
         ensure_installed = {
-          'lua_ls', 'ts_ls', 'eslint', 'html', 'cssls',
+          'lua_ls', 'pyright', 'ts_ls', 'eslint', 'html', 'cssls',
           'jsonls', 'astro', 'dockerls', 'yamlls', 'ansiblels',
           'taplo', 'bashls', 'marksman'
           -- Tailwind se instala por separado para evitar conflictos
@@ -219,7 +219,6 @@ return {
             },
           },
         },
-        pyright = {},
         ts_ls = {
           filetypes = {
             "javascript", "javascriptreact",
