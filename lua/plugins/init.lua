@@ -56,10 +56,10 @@ return {
 
         },
         styles = {
-          comments = "italic",
-          keywords = "bold",
-          functions = "NONE",
-          variables = "NONE",
+          comments = "NONE",
+          keywords = "bold,italic",
+          functions = "bold",
+          variables = "italic",
         },
       })
       vim.cmd.colorscheme("onedark_dark")

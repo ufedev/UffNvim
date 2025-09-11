@@ -18,7 +18,6 @@ map('n', '<S-l>', '<cmd>bnext<cr>', opts)
 map('n', '<S-h>', '<cmd>bprevious<cr>', opts)
 map('n', '<leader>c', '<cmd>bd<cr>', opts)
 map('n', '<leader>m', '<cmd>cclose<cr>', opts)
-
 -- File operations
 map('n', '<leader>w', '<cmd>w<cr>', opts)
 map('n', '<leader>q', '<cmd>q<cr>', opts)
