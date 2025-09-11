@@ -13,29 +13,8 @@ is_windows = vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1
 -- Basic Configuration
 ------------------------------------------------------------
 require('config')
-local function set_transparent_bg()
-  local transparent_groups = {
-    "Normal",
-    "NormalFloat",
-    "NonText",
-    "SignColumn",
-    "LineNr",
-    "CursorLineNr",
-    "EndOfBuffer"
-  }
-
-  for _, group in ipairs(transparent_groups) do
-    vim.api.nvim_set_hl(0, group, { bg = "NONE" })
-  end
-end
-
--- Aplicar después de cargar cualquier tema
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = set_transparent_bg
-})
 
 -- Aplicar inmediatamente
-set_transparent_bg()
 local helpers = require('utils.helpers')
 
 ------------------------------------------------------------

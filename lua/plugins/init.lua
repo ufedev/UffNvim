@@ -44,17 +44,25 @@ return {
     config = function()
       require("onedarkpro").setup({
         options = {
-          transparency = false,
+          transparency = true,
+          bold = true,
+          italic = true,
+          underline = true,
+          undercurl = true,
+          cursorline = true,
+          termial_colors = true,
+          window_unfocused_color = true,
+          variables = "NONE",
+
         },
         styles = {
           comments = "italic",
           keywords = "bold",
           functions = "NONE",
-          strings = "NONE",
           variables = "NONE",
         },
       })
-      vim.cmd.colorscheme("onedark")
+      vim.cmd.colorscheme("onedark_dark")
     end
   },
 
