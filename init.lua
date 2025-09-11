@@ -1,13 +1,14 @@
 -- NVIM CROSS-PLATFORM STARTER OPTIMIZADO
 -- Author: Malfasi Federico (Optimizado para velocidad)
 -- Performance boost
+-- local vim = vim
 vim.loader.enable()
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 ------------------------------------------------------------
 -- Platform Detection
 ------------------------------------------------------------
-local is_windows = vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1
+is_windows = vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1
 ------------------------------------------------------------
 -- Basic Configuration
 ------------------------------------------------------------
@@ -62,7 +63,8 @@ local plugins = helpers.merge_plugins(
   require('plugins.emoji'),
   require('plugins.go'),
   require('plugins.rust'),
-  require('plugins.ui')
+  require('plugins.ui'),
+  require('plugins.nvim-lsp-signature')
 )
 --print('Loaded Plugins :' .. #plugins)
 require('lazy').setup(plugins)

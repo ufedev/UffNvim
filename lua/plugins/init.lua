@@ -21,7 +21,7 @@ return {
     config = function()
       require('bufferline').setup({
         options = {
-          diagnostics = "nvim_lsp",
+          --    diagnostics = "nvim_lsp",
           offsets = {
             { filetype = "NvimTree", text = "File Explorer", text_align = "left" }
           },
@@ -173,7 +173,7 @@ return {
     config = function()
       require('mason-lspconfig').setup({
         ensure_installed = {
-          'lua_ls', 'pyright', 'ts_ls', 'eslint', 'html', 'cssls',
+          'lua_ls', 'ts_ls', 'eslint', 'html', 'cssls',
           'jsonls', 'astro', 'dockerls', 'yamlls', 'ansiblels',
           'taplo', 'bashls', 'marksman'
           -- Tailwind se instala por separado para evitar conflictos
@@ -294,6 +294,10 @@ return {
       local luasnip = require('luasnip')
 
       cmp.setup({
+        completion = {
+          keyword_length = 1,
+          autocomplete = { require('cmp.types').cmp.TriggerEvent.TextChanged },
+        },
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -322,7 +326,7 @@ return {
           end,
         }),
         sources = {
-          { name = 'nvim_lsp' },
+          { name = 'nvim_lsp', keyword_length = 1 },
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'buffer' },
