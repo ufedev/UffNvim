@@ -2,7 +2,7 @@ return {
   -- Essential
   { 'folke/neodev.nvim',           opts = {} },
   { 'nvim-lua/plenary.nvim',       lazy = true },
-  { 'nvim-tree/nvim-web-devicons', lazy = true },
+  { 'nvim-tree/nvim-web-devicons', lazy = false },
   -- UI Enhancement
   {
     'nvim-lualine/lualine.nvim',
@@ -70,6 +70,7 @@ return {
   {
     'nvim-tree/nvim-tree.lua',
     cmd = { 'NvimTreeToggle', 'NvimTreeFocus' },
+
     config = function()
       require('nvim-tree').setup({
         disable_netrw = true,
@@ -93,7 +94,7 @@ return {
         sync_root_with_cwd = true,
         respect_buf_cwd = true,
         update_focused_file = { enable = true, update_root = true },
-        view = { width = 40 },
+        view = { width = 35 },
       })
     end
   },

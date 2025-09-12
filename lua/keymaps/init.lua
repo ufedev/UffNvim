@@ -45,13 +45,14 @@ map('i', '<C-e>', '<Esc><cmd>Telescope emoji<CR>', { desc = 'Emoji Picker in Ins
 
 -- NvimTree  Node API to new tabs
 --
-function verquees()
+--Definition to the new tab/buffer
+vim.opt.splitright = true
+function new_buffer_right()
   local api = require('nvim-tree.api')
   local node = api.tree.get_node_under_cursor()
   if node and node.type == 'file' then
-    vim.cmd('vsplit ' .. node.name)
-    vim.cmd('wincmd l')
+    vim.cmd('vsplit ' .. vim.fn.fnameescape(node.absolute_path))
   end
 end
 
-map('n', '<C-s>', verquees)
+map('n', '<C-s>', new_buffer_right)

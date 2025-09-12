@@ -34,85 +34,71 @@ Una configuración moderna y modular de Neovim optimizada para desarrollo en **G
 
 ## 🛠️ Instalación
 
-### 1. **Instalar Neovim**
+### 1. **Requisitos previos**
 
 #### Windows
+- Scoop (Gestor de paquetes para windows)
 ```powershell
-# Con Chocolatey
-choco install neovim
 
-# Con Scoop
-scoop install neovim
-
-# Con winget
-winget install Neovim.Neovim
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+```
+- Paquetes necesarios
+```powershell
+scoop bucket add main
+scoop bucket add versions
+scoop bucket add nerd-fonts
+scoop install yarn lua-language-server neovim nodejs-lts python cmake make gcc rustup go JetBrainsMono-NF
 ```
 
 #### macOS
+- Paquetes necesarios
 ```bash
-# Con Homebrew
-brew install neovim
-
-# Con MacPorts
-sudo port install neovim
+brew install neovim yarn lua-language-server node@22 python cmake make gcc rustup go
+brew tap homebrew/cask-fonts
+brew install font-jetbrains-mono-nerd-font
 ```
 
-#### Linux
+#### Linux (Ubuntu/Debian) - Para otras versiones por favor consulte los gestores de instalación
+- Esenciales
+
 ```bash
-# Ubuntu/Debian
-sudo apt install neovim
-
-# Arch Linux
-sudo pacman -S neovim
-
-# Fedora
-sudo dnf install neovim
-
-# O descargar AppImage desde: https://github.com/neovim/neovim/releases
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y build-essencial cmake make gcc git curl unzip
 ```
 
-### 2. **Instalar Node.js**
+- Nodejs [Documentación oficial](https://nodejs.org/es/download)
 
+```bash
+
+# Descarga e instala n y Node.js:
+curl -fsSL https://raw.githubusercontent.com/mklement0/n-install/stable/bin/n-install | bash -s 22
+
+# Node.js ya se instala durante n-install, pero también puedes instalarlo manualmente:
+#   n install 22
+
+# Verify the Node.js version:
+node -v # Should print "v22.19.0".
+
+# Verifica versión de npm:
+npm -v # Debería mostrar "10.9.3".
+
+```
+
+- Yarn 
+```bash
+npm i --global yarn
+```
+
+- Golang (Si se requiere)
+```bash
+
+
+```
+
+## Instalación ripgrep fd
 #### Windows
 ```powershell
-# Con Chocolatey
-choco install nodejs
-
-# Con Scoop
-scoop install nodejs
-
-# O descargar desde: https://nodejs.org
-```
-
-#### macOS
-```bash
-# Con Homebrew
-brew install node
-
-# Con MacPorts
-sudo port install nodejs18
-```
-
-#### Linux
-```bash
-# Ubuntu/Debian
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-# Arch Linux
-sudo pacman -S nodejs npm
-
-# Fedora
-sudo dnf install nodejs npm
-```
-
-### 3. **Instalar ripgrep y fd**
-
-#### Windows
-```powershell
-# Con Chocolatey
-choco install ripgrep fd
-
 # Con Scoop
 scoop install ripgrep fd
 
@@ -127,16 +113,11 @@ winget install sharkdp.fd
 brew install ripgrep fd
 ```
 
-#### Linux
+#### Linux(Ubuntu/Debian)
 ```bash
 # Ubuntu/Debian
-sudo apt install ripgrep fd-find
+sudo apt install ripgrep fd-find -y
 
-# Arch Linux
-sudo pacman -S ripgrep fd
-
-# Fedora
-sudo dnf install ripgrep fd-find
 ```
 
 ### 4. **Instalar lenguajes (opcional)**

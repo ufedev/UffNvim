@@ -5,7 +5,7 @@ return {
       require('lsp_signature').setup({
         bind = true,
         handler_opts = {
-          border = "rounded"
+          border = "shadow",
         },
         floating_window = true,
         hint_enable = true,
