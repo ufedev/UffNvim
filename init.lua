@@ -5,6 +5,7 @@
 vim.loader.enable()
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.g.matchup_matchparen_offscreen = { method = 'popup' }
 ------------------------------------------------------------
 -- Platform Detection
 ------------------------------------------------------------
@@ -43,7 +44,8 @@ local plugins = helpers.merge_plugins(
   require('plugins.go'),
   require('plugins.rust'),
   require('plugins.ui'),
-  require('plugins.nvim-lsp-signature')
+  require('plugins.nvim-lsp-signature'),
+  require('plugins.vim_matchup')
 )
 --print('Loaded Plugins :' .. #plugins)
 require('lazy').setup(plugins)

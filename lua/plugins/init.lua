@@ -146,6 +146,9 @@ return {
           'markdown', 'markdown_inline',
           'svelte', 'vue', 'nginx'
         },
+        matchup = {
+          enable = true
+        },
         sync_install = false,
         auto_install = true,
         highlight = {
