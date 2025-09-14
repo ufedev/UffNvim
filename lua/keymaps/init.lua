@@ -42,7 +42,6 @@ map('n', '<leader>em', '<cmd>Telescope emoji<CR>', { desc = 'Emoji Picker' })
 map('i', '<C-e>', '<Esc><cmd>Telescope emoji<CR>', { desc = 'Emoji Picker in Insert' })
 
 
-
 -- NvimTree  Node API to new tabs
 --
 --Definition to the new tab/buffer
