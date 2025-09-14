@@ -16,7 +16,7 @@ map('n', '<C-l>', '<C-w>l', opts)
 -- Buffers
 map('n', '<S-l>', '<cmd>bnext<cr>', opts)
 map('n', '<S-h>', '<cmd>bprevious<cr>', opts)
-map('n', '<leader>c', '<cmd>bd<cr>', opts)
+map('n', '<leader>c', '<cmd>Bdelete<cr>', opts)
 map('n', '<leader>m', '<cmd>cclose<cr>', opts)
 -- File operations
 map('n', '<leader>w', '<cmd>w<cr>', opts)
@@ -52,6 +52,7 @@ function new_buffer_right()
   local node = api.tree.get_node_under_cursor()
   if node and node.type == 'file' then
     vim.cmd('vsplit ' .. vim.fn.fnameescape(node.absolute_path))
+    -- vim.cmd('tab split')
   end
 end
 

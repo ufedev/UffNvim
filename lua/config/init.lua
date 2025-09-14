@@ -11,6 +11,7 @@ vim.opt.ttimeoutlen = 10
 
 -- UI settings
 vim.opt.termguicolors = true
+vim.opt.showtabline = 2
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.mouse = 'a'

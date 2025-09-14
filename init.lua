@@ -1,4 +1,5 @@
 -- NVIM CROSS-PLATFORM STARTER OPTIMIZADO
+
 -- Author: Malfasi Federico (Optimizado para velocidad)
 -- Performance boost
 -- local vim = vim
@@ -39,7 +40,7 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = helpers.merge_plugins(
   require('plugins'),
-  require('plugins.oil'),
+  -- require('plugins.ministarter'),
   require('plugins.emoji'),
   require('plugins.go'),
   require('plugins.rust'),

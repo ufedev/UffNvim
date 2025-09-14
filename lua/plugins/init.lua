@@ -3,6 +3,7 @@ return {
   { 'folke/neodev.nvim',           opts = {} },
   { 'nvim-lua/plenary.nvim',       lazy = true },
   { 'nvim-tree/nvim-web-devicons', lazy = false },
+  { "famiu/bufdelete.nvim" },
   -- UI Enhancement
   {
     'nvim-lualine/lualine.nvim',
@@ -18,12 +19,15 @@ return {
     'akinsho/bufferline.nvim',
     version = '*',
     event = 'VeryLazy',
+    dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
       require('bufferline').setup({
         options = {
-          --    diagnostics = "nvim_lsp",
+          always_show_bufferline = true,
+          diagnostics = "nvim_lsp",
+          separator_stype = 'slant',
           offsets = {
-            { filetype = "NvimTree", text = "File Explorer", text_align = "left" }
+            { filetype = "NvimTree", text = "Explorer", highlight = "Directory", text_align = "left" }
           },
         }
       })
@@ -73,6 +77,9 @@ return {
 
     config = function()
       require('nvim-tree').setup({
+        actions = {
+          open_file = { quit_on_open = false, window_picker = { enable = false } }
+        },
         disable_netrw = true,
         hijack_netrw = true,
         filters = {
