@@ -118,6 +118,18 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope-fzf-native.nvim' },
     config = function()
       require('telescope').setup({
+        layout_strategy = "vertical",
+        layout_config = {
+          width = 0.9,
+          height = 0.9,
+          preview_cutoff = 20,
+        },
+        pickers = {
+          lsp_references = {
+            theme = 'dropdown',
+            initial_mode = 'normal'
+          }
+        },
         defaults = {
           prompt_prefix = " ",
           selection_caret = " ",
@@ -128,11 +140,15 @@ return {
       require('telescope').load_extension('fzf')
       local builtin = require('telescope.builtin')
       local map = vim.keymap.set
+
+      map('n', 'gd', builtin.lsp_definitions, { desc = "LSP Definitions" })
       map('n', '<leader>ff', builtin.find_files, {})
       map('n', '<leader>fg', builtin.live_grep, {})
       map('n', '<leader>fb', builtin.buffers, {})
       map('n', '<leader>fh', builtin.help_tags, {})
       map('n', '<leader>fr', builtin.oldfiles, {})
+      map('n', 'gr', builtin.lsp_references, { desc = "LPS References" })
+      map('n', 'gi', builtin.lsp_implementations, { desc = "LSP implementations" })
     end
   },
 
@@ -212,8 +228,6 @@ return {
       local on_attach = function(_, bufnr)
         local opts = { buffer = bufnr, noremap = true, silent = true }
         local map = vim.keymap.set
-        map('n', 'gd', vim.lsp.buf.definition, opts)
-        map('n', '<leader>gr', vim.lsp.buf.references, opts)
         map('n', 'K', vim.lsp.buf.hover, opts)
         map('n', '<leader>rn', vim.lsp.buf.rename, opts)
         map('n', '<leader>ca', vim.lsp.buf.code_action, opts)
