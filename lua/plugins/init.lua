@@ -279,6 +279,9 @@ return {
         taplo = {},
         bashls = {},
         marksman = {},
+        docker_compose_language_service = {
+          filetypes = { 'yaml.docker-compose' }
+        }
       }
 
       for name, config in pairs(servers) do
@@ -462,6 +465,13 @@ return {
         pattern = { "playbook*.yml", "site.yml", "roles/**/*.yml" },
         callback = function()
           vim.bo.filetype = "ansible"
+        end
+      })
+
+      vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+        pattern = { 'docker-compose*.yml', 'docker-compose*.yaml' },
+        callback = function()
+          vim.bo.filetype = 'yaml.docker-compose'
         end
       })
     end
