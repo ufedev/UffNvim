@@ -1,4 +1,5 @@
 return {
+  --- Plugins escenciales
   -- Essential
   { 'folke/neodev.nvim',           opts = {} },
   { 'nvim-lua/plenary.nvim',       lazy = true },
