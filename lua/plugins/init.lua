@@ -275,7 +275,7 @@ return {
             },
           },
         },
-        ansiblels = { filetypes = { 'yaml', 'yml', 'ansible', 'ansible.yaml', 'ansible.yml' } },
+        ansiblels = { filetypes = { 'ansible', 'ansible.yaml', 'ansible.yml' } },
         taplo = {},
         bashls = {},
         marksman = {},
@@ -447,13 +447,22 @@ return {
         javascriptreact = { 'eslint_d' },
         typescriptreact = { 'eslint_d' },
         yaml = { 'yamllint' },
+        ansible = { 'ansible_lint' },
         dockerfile = { 'hadolint' },
       }
 
-      vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+      vim.api.nvim_create_autocmd({ 'BufWritePost', 'BufReadPost', 'BufNewFile' }, {
         callback = function()
           require('lint').try_lint()
         end,
+
+
+      })
+      vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+        pattern = { "playbook*.yml", "site.yml", "roles/**/*.yml" },
+        callback = function()
+          vim.bo.filetype = "ansible"
+        end
       })
     end
   },
