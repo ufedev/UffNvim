@@ -40,13 +40,13 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = helpers.merge_plugins(
   require('plugins'),
-  -- require('plugins.ministarter'),
   require('plugins.emoji'),
   require('plugins.go'),
   require('plugins.rust'),
   require('plugins.ui'),
   require('plugins.nvim-lsp-signature'),
-  require('plugins.vim_matchup')
+  require('plugins.vim_matchup'),
+  require("plugins.auto_tag")
 )
 --print('Loaded Plugins :' .. #plugins)
 require('lazy').setup(plugins)

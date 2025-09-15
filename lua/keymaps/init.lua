@@ -41,6 +41,7 @@ map('n', '<leader>gs', '<cmd>Gitsigns toggle_signs<cr>', opts)
 map('n', '<leader>em', '<cmd>Telescope emoji<CR>', { desc = 'Emoji Picker' })
 map('i', '<C-e>', '<Esc><cmd>Telescope emoji<CR>', { desc = 'Emoji Picker in Insert' })
 
+map('n', '<leader>ge', vim.lsp.buf.references, opts)
 
 -- NvimTree  Node API to new tabs
 --

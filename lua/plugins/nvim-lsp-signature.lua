@@ -10,9 +10,9 @@ return {
         floating_window = true,
         hint_enable = true,
         floating_window_above_cur_line = true,
-        hint_prefix = "📎",
+        hint_prefix = "{..}",
         hi_parameter = "LspSignatureActiveParameter",
-        always_trigger = true,
+        always_trigger = false,
       })
     end
   }
