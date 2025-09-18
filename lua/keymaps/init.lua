@@ -3,7 +3,8 @@
 ------------------------------------------------------------
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
-
+-- Redefine the ESC --
+map('i',"<Esc>","<Esc>",{noremap=true,silent=true})
 -- Clear search
 map('n', '<Esc>', '<cmd>nohlsearch<cr>', opts)
 
