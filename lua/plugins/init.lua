@@ -143,11 +143,11 @@ return {
       local map = vim.keymap.set
 
       map('n', 'gd', builtin.lsp_definitions, { desc = "LSP Definitions" })
-      map('n', '<leader>ff', builtin.find_files, {})
-      map('n', '<leader>fg', builtin.live_grep, {})
-      map('n', '<leader>fb', builtin.buffers, {})
-      map('n', '<leader>fh', builtin.help_tags, {})
-      map('n', '<leader>fr', builtin.oldfiles, {})
+      map('n', '<leader>ff', builtin.find_files, { noremap = true, silent = true })
+      map('n', '<leader>fg', builtin.live_grep, { noremap = true, silent = true })
+      map('n', '<leader>fb', builtin.buffers, { noremap = true, silent = true })
+      map('n', '<leader>fh', builtin.help_tags, { noremap = true })
+      map('n', '<leader>fr', builtin.oldfiles, { noremap = true })
       map('n', 'gr', builtin.lsp_references, { desc = "LPS References" })
       map('n', 'gi', builtin.lsp_implementations, { desc = "LSP implementations" })
     end
@@ -321,6 +321,7 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-emoji',
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
     },
@@ -365,6 +366,7 @@ return {
           { name = 'luasnip' },
           { name = 'path' },
           { name = 'buffer' },
+          { name = 'emoji' },
         }
       })
     end

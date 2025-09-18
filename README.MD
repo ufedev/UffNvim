@@ -1,9 +1,9 @@
-:# 🚀 uffnvim
+# 🚀 uffnvim
 
  
 Una configuración moderna y modular de Neovim optimizada para desarrollo en **Go**, **Rust**, **JavaScript/TypeScript** y más.
 
-## ✨ Características
+## ✨ Características 💎
 
 - 🔥 **Lazy loading** de plugins para inicio ultra rápido
 - 🦀 Soporte completo para **Rust** con rustaceanvim
