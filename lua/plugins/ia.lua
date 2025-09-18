@@ -1,4 +1,5 @@
 return {
+  -- IA CODEIUM to write code easy
   {
     "Exafunction/codeium.vim",
     event = "InsertEnter",

@@ -47,6 +47,7 @@ local plugins = helpers.merge_plugins(
   require('plugins.nvim-lsp-signature'),
   require('plugins.vim_matchup'),
   require("plugins.auto_tag"),
+  -- IA Plug --
   require('plugins.ia')
 )
 --print('Loaded Plugins :' .. #plugins)
