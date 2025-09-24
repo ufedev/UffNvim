@@ -12,8 +12,7 @@ vim.g.matchup_matchparen_offscreen = { method = 'popup' }
 ------------------------------------------------------------
 is_windows = vim.fn.has('win32') == 1 or vim.fn.has('win64') == 1
 ------------------------------------------------------------
--- Basic Configuration
-------------------------------------------------------------
+-- Basic Configuration ---------------------------------------------------------
 require('config')
 
 -- Aplicar inmediatamente
@@ -48,7 +47,9 @@ local plugins = helpers.merge_plugins(
   require('plugins.vim_matchup'),
   require("plugins.auto_tag"),
   -- IA Plug --
-  require('plugins.ia')
+  require('plugins.ia'),
+  -- UI Enhancement --
+  require('plugins.ui-enhancement')
 )
 --print('Loaded Plugins :' .. #plugins)
 require('lazy').setup(plugins)
