@@ -1,5 +1,4 @@
 -- NVIM CROSS-PLATFORM STARTER OPTIMIZADO
-
 -- Author: Malfasi Federico (Optimizado para velocidad)
 -- Performance boost
 -- local vim = vim
