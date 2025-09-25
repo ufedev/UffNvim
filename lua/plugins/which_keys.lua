@@ -1,5 +1,5 @@
--- lua/plugins/which-key.lua
--- Plugin que muestra los atajos disponibles cuando presionás <leader> o cualquier tecla
+-- lua/plugins/which-key-v3.lua
+-- Which-key con la sintaxis correcta para v3
 
 return {
   {
@@ -7,7 +7,7 @@ return {
     event = "VeryLazy",
     opts = {
       ---@type false | "classic" | "modern" | "helix"
-      preset = "modern",
+      preset = "classic",
 
       -- Delay antes de mostrar el popup (ms)
       delay = function(ctx)
@@ -15,9 +15,12 @@ return {
       end,
 
       -- Configuración de triggers automáticos
-      triggers = {
-        { "<auto>", mode = "nxsot" },
-      },
+      triggers = {}, -- ← VACÍO para deshabilitar detección automática
+
+      -- Deshabilitar detección automática completamente
+      defer = function(ctx)
+        return false -- No mostrar nunca automáticamente
+      end,
 
       -- ✨ CONFIGURACIÓN DE VENTANA (opts.win en lugar de opts.window)
       win = {
@@ -132,9 +135,80 @@ return {
       -- Debugging
       debug = false,
     },
+
     config = function(_, opts)
       local wk = require("which-key")
       wk.setup(opts)
-    end
 
-  } }
+      -- 🎯 SOLO LOS KEYMAPS QUE VOS CONFIGURÉS EXPLÍCITAMENTE
+      -- No detecta nada automáticamente, solo muestra estos:
+
+      wk.add({
+        -- Configurá SOLO los que querés que aparezcan
+        { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+        { "<leader>fg", "<cmd>Telescope live_grep<cr>",  desc = "Live Grep" },
+        { "<leader>fb", "<cmd>Telescope buffers<cr>",    desc = "Find Buffers" },
+        { "gd",         vim.lsp.buf.definition,          desc = "Go to Definition" },
+        { "gr",         vim.lsp.buf.references,          desc = "Go to References" },
+        { "K",          vim.lsp.buf.hover,               desc = "Hover Doc" },
+
+        -- Agregá acá SOLO los keymaps que querés que aparezcan
+        -- El formato es: { "tecla", "comando", desc = "descripción" }
+      })
+
+      -- Si querés que which-key se abra con una tecla específica:
+      vim.keymap.set("n", "<leader>", function()
+        require("which-key").show({ global = false })
+      end, { desc = "Which Key" })
+    end,
+  },
+}
+
+--[[
+📋 CONFIGURACIONES PRINCIPALES PARA opts.win:
+
+BORDES:
+border = "none"     -- sin borde
+border = "single"   -- línea simple
+border = "double"   -- línea doble
+border = "rounded"  -- esquinas redondeadas
+border = "solid"    -- sólido
+border = "shadow"   -- con sombra
+
+POSICIÓN Y TAMAÑO:
+no_overlap = true           -- no superponer cursor
+padding = { 1, 2 }          -- [top/bottom, right/left]
+title = true                -- mostrar título
+title_pos = "center"        -- "left" | "center" | "right"
+
+TRANSPARENCIA:
+wo = { winblend = 10 }      -- 0-100 (0=opaco, 100=transparente)
+
+LAYOUT:
+layout = {
+  width = { min = 20 },     -- ancho mínimo
+  spacing = 3               -- espaciado entre columnas
+}
+
+DELAY:
+delay = 200                 -- ms antes de mostrar
+delay = function(ctx)       -- función dinámica
+  return ctx.plugin and 0 or 200
+end
+
+ICONOS:
+icons = {
+  mappings = false          -- deshabilitar todos los iconos
+}
+
+PLUGINS:
+plugins = {
+  marks = false             -- deshabilitar marks popup
+  registers = false         -- deshabilitar registers popup
+  spelling = { enabled = false } -- deshabilitar spelling
+}
+
+COMANDOS ÚTILES:
+:WhichKey                   -- mostrar todos los mappings
+:checkhealth which-key      -- verificar instalación
+]]
