@@ -223,7 +223,7 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'williamboman/mason-lspconfig.nvim' },
     config = function()
-      local lspconfig = require('lspconfig')
+      local lspconfig = vim.lsp.config
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       local on_attach = function(_, bufnr)
@@ -287,24 +287,26 @@ return {
       for name, config in pairs(servers) do
         config.on_attach = on_attach
         config.capabilities = capabilities
-        lspconfig[name].setup(config)
+        lspconfig(name, config)
       end
+      vim.lsp.enable(vim.tbl_keys(servers))
 
       -- Tailwind CSS setup separado (para evitar conflictos con Mason)
       vim.defer_fn(function()
         if vim.fn.executable("tailwindcss-language-server") == 1 then
-          lspconfig.tailwindcss.setup({
+          lspconfig("tailwindcss", {
             on_attach = on_attach,
             capabilities = capabilities,
             filetypes = {
               "html", "css", "scss", "javascript", "typescript",
               "javascriptreact", "typescriptreact", "vue", "svelte", "astro"
             },
-            root_dir = lspconfig.util.root_pattern(
+            root_markers = {
               "tailwind.config.js", "tailwind.config.cjs", "tailwind.config.ts",
               "postcss.config.js", "package.json", ".git"
-            ),
+            },
           })
+          vim.lsp.enable({ "tailwindcss" })
         end
       end, 2000)
     end

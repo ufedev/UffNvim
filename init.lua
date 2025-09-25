@@ -16,7 +16,6 @@ require('config')
 
 -- Aplicar inmediatamente
 local helpers = require('utils.helpers')
-
 ------------------------------------------------------------
 -- Lazy.nvim Bootstrap
 ------------------------------------------------------------
@@ -42,9 +41,12 @@ local plugins = helpers.merge_plugins(
   require('plugins.go'),
   require('plugins.rust'),
   require('plugins.ui'),
-  require('plugins.nvim-lsp-signature'),
+  require('plugins.nvim_lsp_signature'),
   require('plugins.vim_matchup'),
   require("plugins.auto_tag"),
+  -- Indens, Rainbow --
+  require("plugins.indent_blankline"),
+  require("plugins.rainbow_delimeters"),
   -- IA Plug --
   require('plugins.ia'),
   -- UI Enhancement --

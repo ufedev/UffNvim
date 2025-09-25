@@ -1,6 +1,5 @@
 local M = {}
 
-
 function M.merge_plugins(...)
   local result = {}
   for _, plugins_list in ipairs({ ... }) do
