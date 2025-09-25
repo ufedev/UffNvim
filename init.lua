@@ -50,7 +50,11 @@ local plugins = helpers.merge_plugins(
   -- IA Plug --
   require('plugins.ia'),
   -- UI Enhancement --
-  require('plugins.ui-enhancement')
+  require('plugins.ui-enhancement'),
+  -- Animations --
+  require("plugins.animations")
+-- which keys --
+-- require('plugins.which_keys')
 )
 --print('Loaded Plugins :' .. #plugins)
 require('lazy').setup(plugins)
