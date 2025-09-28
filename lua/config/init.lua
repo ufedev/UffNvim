@@ -17,7 +17,10 @@ vim.opt.relativenumber = true
 vim.opt.mouse = 'a'
 vim.opt.signcolumn = 'yes'
 vim.opt.cursorline = true
-
+vim.opt.wrap = true
+vim.opt.linebreak = true
+vim.opt.breakindent = true
+vim.opt.showbreak = '↪ '
 -- Clipboard
 if is_windows then
   vim.opt.clipboard = 'unnamed'
@@ -30,7 +33,6 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.smartindent = true
-vim.opt.wrap = false
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 

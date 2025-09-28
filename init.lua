@@ -73,3 +73,7 @@ require('utils.init')
 --require('config.oil_auto').setup()
 -- Message
 -- print("UffNVIM was installed perfectly. enjoy it")
+-- Corrección resaltado de imports no usados y folding de funciones o bloques de códigos
+vim.api.nvim_set_hl(0, "Folded", { fg = "#256EB5", nocombine = true, bold = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnused", { fg = "#2563EB", italic = true, nocombine = true })
+vim.api.nvim_set_hl(0, "DiagnosticUnusedImport", { fg = "lightred", italic = true, bold = true })

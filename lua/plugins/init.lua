@@ -55,7 +55,7 @@ return {
           underline = true,
           undercurl = true,
           cursorline = true,
-          termial_colors = true,
+          terminal_colors = true,
           window_unfocused_color = true,
           variables = "NONE",
 
@@ -66,6 +66,19 @@ return {
           functions = "bold",
           variables = "italic",
         },
+        highlight = {
+          DiagnosticUnnecessary = {
+            style = 'undercurl',
+            fg = "NONE",
+            sp = '${gray}'
+          },
+          Folded = {
+            fg = "NONE",
+            bg = "${bg}",
+            style = 'italic'
+          },
+
+        }
       })
       vim.cmd.colorscheme("onedark_dark")
     end
@@ -155,6 +168,9 @@ return {
 
   -- Treesitter (Syntax Highlighting)
   {
+    'nvim-treesitter/playground'
+  },
+  {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     event = { 'BufReadPost', 'BufNewFile' },
@@ -233,8 +249,6 @@ return {
         map('n', '<leader>rn', vim.lsp.buf.rename, opts)
         map('n', '<leader>ca', vim.lsp.buf.code_action, opts)
         map('n', '<leader>fm', function() vim.lsp.buf.format({ async = true }) end, opts)
-        map('n', '[d', vim.diagnostic.goto_prev, opts)
-        map('n', ']d', vim.diagnostic.goto_next, opts)
       end
 
       -- Server configurations
