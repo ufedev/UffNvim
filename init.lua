@@ -52,7 +52,9 @@ local plugins = helpers.merge_plugins(
   -- UI Enhancement --
   require('plugins.ui-enhancement'),
   -- Animations --
-  require("plugins.animations")
+  require("plugins.animations"),
+  -- Snippet --
+  require("plugins.snippet")
 -- which keys --
 -- require('plugins.which_keys')
 )
