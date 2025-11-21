@@ -54,7 +54,9 @@ local plugins = helpers.merge_plugins(
   -- Animations --
   require("plugins.animations"),
   -- Snippet --
-  require("plugins.snippet")
+  require("plugins.snippet"),
+  --- Images ---
+  require('plugins.images')
 -- which keys --
 -- require('plugins.which_keys')
 )
